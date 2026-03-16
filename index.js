@@ -17,7 +17,7 @@ app.use(cors({
   origin: [
     'http://localhost:3000',
     'http://localhost:5173',
-    'https://chruch-grafam20.netlify.app/'
+    'https://chruch-grafam20.netlify.app'
   ],
   credentials: true,
 }));
