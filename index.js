@@ -12,7 +12,16 @@ connectDB();
 
 const app = express();
 
-app.use(cors({ origin: 'http://localhost:3000', credentials: true }));
+// ✅ Allow Localhost + Live Netlify
+app.use(cors({
+  origin: [
+    'http://localhost:3000',
+    'http://localhost:5173',
+    'https://your-netlify-site.netlify.app'
+  ],
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 if (process.env.NODE_ENV === 'development') app.use(morgan('dev'));
@@ -22,7 +31,11 @@ app.use('/api/members', memberRoutes);
 app.use('/api/messages', messageRoutes);
 
 app.get('/api/health', (req, res) => {
-  res.json({ success: true, message: 'GRAFAM API is running', church: 'Grace Faith Mission (GRAFAM) Soppo' });
+  res.json({
+    success: true,
+    message: 'GRAFAM API is running',
+    church: 'Grace Faith Mission (GRAFAM) Soppo'
+  });
 });
 
 app.use((err, req, res, next) => {
